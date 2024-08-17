@@ -9,15 +9,15 @@ class ServoMaster
 private:
     const int numServos = 4; // Number of servos
 
-    int servoPins[] = {12, 9, 11, 10}; // Pins connected to the servos
+    int servoPins[4] = {9, 12, 10, 11}; // Pins connected to the servos
 
-    int offsetServo[] = {-5, -7, 20, 0};
+    int offsetServo[4] = {17, -6, -14, 5};
 
-    int angle[] = {90, 90, 90, 90};
+    int angle[4] = {90, 90, 90, 90};
 
-    int set_angle[] = {90, 90, 90, 90};
+    int set_angle[4] = {90, 90, 90, 90};
 
-    Servo servos[numServos]; // Create an array of Servo objects
+    Servo servos[4]; // Create an array of Servo objects
 
     void attach()
     {
@@ -40,19 +40,19 @@ private:
         float final_pos;
         if (servoNum == 0)
         {
-            final_pos = (_angle - 90) * 1.65 + 90;
+            final_pos = (_angle - 90) * 1.2 * 1.25 + 90;
         }
         else if (servoNum == 1)
         {
-            final_pos = (_angle - 90) * 1.60 + 90;
+            final_pos = (_angle - 90) * 1.4 * 1.25 + 90;
         }
         else if (servoNum == 2)
         {
-            final_pos = (_angle - 90) * 1.60 + 90;
+            final_pos = (_angle - 90) * 1.2 * 1.1 + 90;
         }
         else if (servoNum == 3)
         {
-            final_pos = (_angle - 90) * 1.65 + 90;
+            final_pos = (_angle - 90) * 1.2 * 1.1 + 90;
         }
         this->servos[servoNum].write(final_pos);
     }
@@ -65,7 +65,7 @@ public:
     void update()
     {
 
-        for (int ii = 0; i < 4; i++)
+        for (int ii = 0; ii < 4; ii++)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -105,20 +105,29 @@ long frameCount = 0;
 void setup()
 {
     servoMaster.init();
+    delay(500);
+    servoMaster.setAngleImidiately(0, 90);
+    servoMaster.setAngleImidiately(1, 90);
+    servoMaster.setAngleImidiately(2, 90);
+    servoMaster.setAngleImidiately(3, 90);
+
+    delay(8);
+
     servoMaster.setAngle(0, 120);
     servoMaster.setAngle(1, 60);
     servoMaster.setAngle(2, 60);
     servoMaster.setAngle(3, 120);
-    for (int i; i < 10; i++)
+
+    for (int i; i < 15; i++)
     {
-        delay(5);
+        delay(8);
         servoMaster.update();
     }
 }
 void loop()
 {
-    delay(6);
-    frameCount++;
+    delay(8);
+    frameCount+=1;
     servoMaster.update();
     int state = (frameCount % 170);
     if (state == 0)
