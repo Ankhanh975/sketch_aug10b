@@ -11,11 +11,11 @@ private:
 
     int servoPins[4] = {9, 12, 10, 11}; // Pins connected to the servos
 
-    int offsetServo[4] = {17, -6, -14, 5};
+    float offsetServo[4] = {4.0, -7.0, -9.0, -6.0};
 
-    int angle[4] = {90, 90, 90, 90};
+    float angle[4] = {90.0, 90.0, 90.0, 90.0};
 
-    int set_angle[4] = {90, 90, 90, 90};
+    float set_angle[4] = {90.0, 90.0, 90.0, 90.0};
 
     Servo servos[4]; // Create an array of Servo objects
 
@@ -28,31 +28,31 @@ private:
             this->write(i, initialPosition); // Set each servo to its corrected initial position
         }
     }
-    void write(int servoNum, int initialPosition)
+    void write(int servoNum, float initialPosition)
     {
         if (servoNum == 1 || servoNum == 3)
         {
             initialPosition = 180 - initialPosition;
         }
-        int _angle;
+        float _angle;
         initialPosition += offsetServo[servoNum];
         _angle = constrain(initialPosition, 0, 180); // Ensure position is within bounds
         float final_pos;
         if (servoNum == 0)
         {
-            final_pos = (_angle - 90) * 1.2 * 1.25 + 90;
+            final_pos = (_angle - 90) * 0.55 + 90;
         }
         else if (servoNum == 1)
         {
-            final_pos = (_angle - 90) * 1.4 * 1.25 + 90;
+            final_pos = (_angle - 90) * 0.55 + 90;
         }
         else if (servoNum == 2)
         {
-            final_pos = (_angle - 90) * 1.2 * 1.1 + 90;
+            final_pos = (_angle - 90) * 0.55 + 90;
         }
         else if (servoNum == 3)
         {
-            final_pos = (_angle - 90) * 1.2 * 1.1 + 90;
+            final_pos = (_angle - 90) * 0.55 + 90;
         }
         this->servos[servoNum].write(final_pos);
     }
@@ -71,7 +71,7 @@ public:
             {
                 if (set_angle[ii] != angle[ii])
                 {
-                    angle[ii] += sign(set_angle[ii] - angle[ii]);
+                    angle[ii] += sign(set_angle[ii] - angle[ii]) * 1.25;
                     write(ii, angle[ii]);
                 }
                 else
@@ -81,20 +81,20 @@ public:
             }
         }
     }
-    void setAngle(int servoNum, int angle)
+    void setAngle(int servoNum, float angle)
     {
 
         int _angle = constrain(angle, 0, 180); // Ensure position is within bounds
         this->set_angle[servoNum] = _angle;
     }
 
-    void setAngleImidiately(int servoNum, int angle)
+    void setAngleImidiately(int servoNum, float angle)
     {
         this->write(servoNum, angle);
         this->angle[servoNum] = angle;
         this->set_angle[servoNum] = angle;
     }
-    int get_angle(int num)
+    float get_angle(int num)
     {
         return angle[num];
     }
@@ -126,8 +126,9 @@ void setup()
 }
 void loop()
 {
-    delay(8);
-    frameCount+=1;
+    delay(1);
+    delayMicroseconds(750 );
+    frameCount += 1;
     servoMaster.update();
     int state = (frameCount % 170);
     if (state == 0)
