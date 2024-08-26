@@ -80,7 +80,6 @@ public:
             if (set_angle1 != angle1)
             {
 
-
                 angle1 += sign(set_angle1 - angle1);
                 write(0, angle1);
             }
@@ -198,60 +197,70 @@ public:
 };
 
 ServoMaster servoMaster;
-long frameCount = 0;   
+long frameCount = 0;
 void setup()
 {
-  servoMaster.init();
-  servoMaster.setAngle(0, 120);
-      servoMaster.setAngle(1, 60);
-      servoMaster.setAngle(2, 60);
-      servoMaster.setAngle(3, 120);
-      for(int i; i<10;i++){
+    servoMaster.init();
+    servoMaster.setAngle(0, 120);
+    servoMaster.setAngle(1, 60);
+    servoMaster.setAngle(2, 60);
+    servoMaster.setAngle(3, 120);
+    for (int i; i < 10; i++)
+    {
         delay(5);
         servoMaster.update();
-      }
-
+    }
 }
 void loop()
 {
     delay(5);
     frameCount++;
     servoMaster.update();
-    int state = (frameCount%170);
-    if(state==0){
-      servoMaster.setAngle(0, 100);
-      servoMaster.setAngle(3, 100);
-    } 
-    if(state==20){
-      servoMaster.setAngle(2, 125);
+    int state = (frameCount % 170);
+    if (state == 0)
+    {
+        servoMaster.setAngle(0, 100);
+        servoMaster.setAngle(3, 100);
     }
-    if(state==30){
-      servoMaster.setAngle(0, 80);
-      servoMaster.setAngle(3, 80);
-    } 
-    if(state==50){
-      servoMaster.setAngle(1, 125);
+    if (state == 20)
+    {
+        servoMaster.setAngle(2, 125);
     }
-    if(state==60){
-      servoMaster.setAngle(0, 55);
-      servoMaster.setAngle(3, 55);
-    } 
-     if(state==80){
-      servoMaster.setAngle(1, 100);
-      servoMaster.setAngle(2, 100);
-    } 
-    if(state==100){
-      servoMaster.setAngle(3, 125);
+    if (state == 30)
+    {
+        servoMaster.setAngle(0, 80);
+        servoMaster.setAngle(3, 80);
     }
-    if(state==110){
-      servoMaster.setAngle(1, 80);
-      servoMaster.setAngle(2, 80);
-    } 
-    if(state==130){
-      servoMaster.setAngle(0, 120);
+    if (state == 50)
+    {
+        servoMaster.setAngle(1, 125);
     }
-    if(state==150){
-      servoMaster.setAngle(1, 55);
-      servoMaster.setAngle(2, 55);
-    }} 
-
+    if (state == 60)
+    {
+        servoMaster.setAngle(0, 55);
+        servoMaster.setAngle(3, 55);
+    }
+    if (state == 80)
+    {
+        servoMaster.setAngle(1, 100);
+        servoMaster.setAngle(2, 100);
+    }
+    if (state == 100)
+    {
+        servoMaster.setAngle(3, 125);
+    }
+    if (state == 110)
+    {
+        servoMaster.setAngle(1, 80);
+        servoMaster.setAngle(2, 80);
+    }
+    if (state == 130)
+    {
+        servoMaster.setAngle(0, 120);
+    }
+    if (state == 150)
+    {
+        servoMaster.setAngle(1, 55);
+        servoMaster.setAngle(2, 55);
+    }
+}
