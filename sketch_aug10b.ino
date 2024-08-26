@@ -30,10 +30,10 @@ private:
     }
     void write(int servoNum, float initialPosition)
     {
-        if (servoNum == 1 || servoNum == 3)
-        {
-            initialPosition = 180 - initialPosition;
-        }
+        // if (servoNum == 1 || servoNum == 3)
+        // {
+            // initialPosition = 180 - initialPosition;
+        // }
         float _angle;
         initialPosition += offsetServo[servoNum];
         _angle = constrain(initialPosition, 0, 180); // Ensure position is within bounds
